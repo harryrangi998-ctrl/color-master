@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Color Master</title>
+<style>
+body {
+ background:#101323;
+ color:white;
+ text-align:center;
+ font-family:Arial;
+}
+h1 {color:gold;}
+button {
+ padding:18px 25px;
+ margin:8px;
+ border:0;
+ border-radius:12px;
+ color:white;
+ font-size:20px;
+}
+.red {background:red;}
+.green {background:green;}
+.violet {background:purple;}
+#timer {font-size:40px;color:gold;}
+</style>
+</head>
+<body>
+
+<h1>👑 COLOR MASTER</h1>
+<h2>Free Color Game</h2>
+
+<h2 id="timer">30</h2>
+
+<button class="red" onclick="pick('Red')">RED</button>
+<button class="green" onclick="pick('Green')">GREEN</button>
+<button class="violet" onclick="pick('Violet')">VIOLET</button>
+
+<h2 id="message">Choose your color!</h2>
+<h3 id="points">Points: 100</h3>
+
+<script>
+let time=30;
+let points=100;
+let selected="";
+let locked=false;
+
+function pick(color) {
+ if(locked) return;
+ selected=color;
+ locked=true;
+ document.getElementById("message").innerText =
+ "Selected: "+color;
+}
+
+setInterval(function(){
+ time--;
+ document.getElementById("timer").innerText=time;
+
+ if(time<=0){
+  let colors=["Red","Green","Violet"];
+  let result=colors[Math.floor(Math.random()*3)];
+
+  if(selected===result){
+   points+=10;
+   document.getElementById("message").innerText="You Win! 🎉 Result: "+result;
+  } else {
+   document.getElementById("message").innerText="Result: "+result;
+  }
+
+  document.getElementById("points").innerText="Points: "+points;
+
+  selected="";
+  locked=false;
+  time=30;
+ }
+},1000);
+</script>
+
+</body>
+</html>
